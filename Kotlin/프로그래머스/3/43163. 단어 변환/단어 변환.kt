@@ -1,4 +1,3 @@
-
 class Solution {
     var visit: Array<Boolean> = Array(50) { false }
     var answer = 50
@@ -11,11 +10,9 @@ class Solution {
 
         return answer
     }
-
     fun dfs(current: String, target: String, words: Array<String>, depth: Int) {
         if (current == target) {
             answer = minOf(answer, depth)
-            return
         }
         for (i in words.indices) {
             if (!visit[i] && canChange(current, words[i])) {
