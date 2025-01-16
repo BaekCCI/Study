@@ -5,9 +5,7 @@ class Solution {
         dfs(k, dungeons, 0)
         return answer
     }
-
     fun dfs(tired: Int, dungeons: Array<IntArray>, depth: Int) {
-        answer = maxOf(answer, depth)
         for (i in dungeons.indices) {
             if (!visit[i] && dungeons[i][0] <= tired) {
                 visit[i] = true
@@ -15,5 +13,6 @@ class Solution {
                 visit[i] = false
             }
         }
+        answer = maxOf(answer, depth)
     }
 }
