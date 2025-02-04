@@ -9,10 +9,12 @@ function solution(prices) {
         }
         stack.push(i);
     }
+    
+    const lastIndex = prices.length - 1
 
     while (stack.length > 0) {
         const topIndex = stack.pop();
-        answer[topIndex] = prices.length - 1 - topIndex;
+        answer[topIndex] = lastIndex - topIndex;
     }
 
     return answer;
