@@ -1,16 +1,14 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
     public int solution(int[] nums) {
-        int answer = 0;
-        Map<Integer, Integer> count = new HashMap<>();
+        Set<Integer> numbers = new HashSet<>();
         
         for (int num : nums) {
-            count.put(num, count.getOrDefault(num, 0) + 1);
+            numbers.add(num);
         }
         
-        answer = Math.min(nums.length / 2, count.size());
-        return answer;
+        return Math.min(nums.length / 2, numbers.size());
     }
 }
