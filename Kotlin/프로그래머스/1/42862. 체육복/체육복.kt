@@ -4,6 +4,7 @@ class Solution {
         val sortReserve = reserve.filter{it !in lost}.sorted()
         val noClothes = lost.filter{it !in reserve}.toMutableList()
         answer += n - noClothes.size
+        
         for(p in sortReserve){
             if(noClothes.contains(p-1)){
                 answer++
