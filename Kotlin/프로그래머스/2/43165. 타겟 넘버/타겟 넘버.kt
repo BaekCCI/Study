@@ -1,20 +1,19 @@
 class Solution {
-    val visit: BooleanArray = BooleanArray(20) { false }
-    var answer = 0
     fun solution(numbers: IntArray, target: Int): Int {
-
-        dfs(numbers, target, 0, 0)
-        return answer
-    }
-
-    fun dfs(numbers: IntArray, target: Int, depth: Int, sum: Int) {
-        if (depth == numbers.size) {
-            if (sum == target) {
-                answer++
+        var answer = 0
+        
+        fun dfs(depth: Int = 0, result: Int = 0){
+            if(depth == numbers.size){
+                if(result == target){
+                    answer ++
+                }
+            }else{
+                dfs(depth+1,result+numbers[depth])
+                dfs(depth+1,result-numbers[depth])
             }
-        } else {
-            dfs(numbers, target, depth + 1, sum + numbers[depth])
-            dfs(numbers, target, depth + 1, sum - numbers[depth])
+            
         }
+        dfs()
+        return answer
     }
 }
