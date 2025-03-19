@@ -3,12 +3,12 @@ import java.util.Set;
 
 class Solution {
     public int solution(int[] nums) {
-        Set<Integer> numbers = new HashSet<>();
-        
+        Set<Integer> pocket = new HashSet<>();
+
         for (int num : nums) {
-            numbers.add(num);
+            pocket.add(num);
         }
-        
-        return Math.min(nums.length / 2, numbers.size());
+
+        return Math.min(nums.length / 2, pocket.size());
     }
 }
