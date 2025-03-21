@@ -2,12 +2,9 @@ import java.util.Arrays;
 
 class Solution {
     public boolean solution(String[] phoneBook) {
-
-        // 오름차순 정렬
-        Arrays.sort(phoneBook);
-
-        for (int i = 0; i < phoneBook.length - 1; i++) {
-            if (phoneBook[i + 1].startsWith(phoneBook[i])) {
+        Arrays.sort(phoneBook); // 사전순 정렬
+        for (int i = 1; i < phoneBook.length; i++) {
+            if (phoneBook[i].startsWith(phoneBook[i - 1])) {
                 return false;
             }
         }
