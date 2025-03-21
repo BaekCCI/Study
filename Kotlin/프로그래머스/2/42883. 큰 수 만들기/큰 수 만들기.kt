@@ -3,22 +3,19 @@ class Solution {
         var num = number.toMutableList()
 
         var dropCount = 0
-        val que = ArrayDeque<Int>()
+        val que = ArrayDeque<Char>()
 
         for(i in num.indices){
-            val target = num[i].digitToInt()
-            if(que.isEmpty()){
-                que.add(target)
-            }else{
-                while(que.isNotEmpty() && que.last()<target){
-                    if(dropCount>=k){
-                        break
-                    }
-                    que.removeLast()
-                    dropCount++
+            val target = num[i]
+            
+            while(que.isNotEmpty() && que.last()<target){
+                if(dropCount>=k){
+                    break
                 }
-                que.add(target)
+                que.removeLast()
+                dropCount++
             }
+            que.add(target)        
         }
         while(dropCount<k){
             que.removeLast()
