@@ -3,7 +3,6 @@ class Solution {
         var num = number.toMutableList()
 
         var dropCount = 0
-        var start = 0
         val que = ArrayDeque<Int>()
 
         for(i in num.indices){
