@@ -23,7 +23,7 @@ fun main() {
             val sum = evenCards[i] + (oddCards[n] - oddCards[i])
             answer = maxOf(answer, sum)
         } else {
-            val sum = evenCards[i] + cards[i] + (oddCards[n] - oddCards[i + 1])-underCard
+            val sum = evenCards[i] + (oddCards[n] - oddCards[i]) - underCard
             answer = maxOf(answer, sum)
         }
     }
