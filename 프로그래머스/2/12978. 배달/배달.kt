@@ -17,6 +17,8 @@ class Solution {
         while (pq.isNotEmpty()) {
             val (curN, curT) = pq.poll()
 
+            if (curT > array[curN]) continue
+
             roadMap[curN]?.forEach { (b, time) ->
                 val total = curT + time
                 if (array[b] > total) {
