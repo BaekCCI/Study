@@ -2,54 +2,46 @@ class Solution {
     fun solution(points: Array<IntArray>, routes: Array<IntArray>): Int {
         var answer = 0
 
-        val visitRoutes: Array<MutableList<IntArray>> = Array(routes.size) { mutableListOf() }
+        var activeRobot = routes.size
+
+        val robots: Array<IntArray> = Array(activeRobot) { intArrayOf() }
+        val nextRouteIdx: IntArray = IntArray(activeRobot) { 1 }
 
         for (i in routes.indices) {
-            val route = routes[i]
-            val visit = mutableListOf<IntArray>()
-            var (curC, curR) = points[route[0] - 1]
+            robots[i] = points[routes[i][0] - 1]
+        }
 
-            visit.add(intArrayOf(curC, curR))
+        while (activeRobot > 1) {
+            val dupCount: MutableMap<Pair<Int, Int>, Int> = mutableMapOf()
 
-            for (i in 1 until route.size) {
-                val (toC, toR) = points[route[i] - 1]
-                while (curC != toC || curR != toR) {
-                    when {
-                        curC < toC -> {
-                            visit.add(intArrayOf(++curC, curR))
-                            continue
-                        }
-                        curC > toC -> {
-                            visit.add(intArrayOf(--curC, curR))
-                            continue
-                        }
-                        curR < toR -> {
-                            visit.add(intArrayOf(curC, ++curR))
-                            continue
-                        }
-                        curR > toR -> {
-                            visit.add(intArrayOf(curC, --curR))
-                            continue
-                        }
-                    }
+            for (i in routes.indices) {
+                if (nextRouteIdx[i] == -1) continue
+
+                val point = robots[i][0] to robots[i][1]
+                dupCount[point] = dupCount.getOrDefault(point, 0) + 1
+
+                if (dupCount[point] == 2) {
+                    answer++
                 }
+
+                if (nextRouteIdx[i] == routes[i].size) {
+                    activeRobot--
+                    nextRouteIdx[i] = -1
+                    continue
+                }
+
+                val (toR, toC) = points[routes[i][nextRouteIdx[i]] - 1]
+                var (robotR, robotC) = point
+                when {
+                    robotR > toR -> robotR--
+                    robotR < toR -> robotR++
+                    robotC > toC -> robotC--
+                    robotC < toC -> robotC++
+                }
+                robots[i] = intArrayOf(robotR, robotC)
+                if (robotR == toR && robotC == toC) nextRouteIdx[i]++
             }
-            visitRoutes[i] = visit
         }
-
-        val maxLength = visitRoutes.maxOf { it.size }
-
-        for (i in 0 until maxLength) {
-            val dup: MutableMap<Pair<Int, Int>, Int> = mutableMapOf()
-
-            for (visit in visitRoutes) {
-                if (visit.size <= i) continue
-                val (curR, curC) = visit[i]
-                dup[Pair(curR, curC)] = dup.getOrDefault(Pair(curR, curC), 0) + 1
-            }
-            answer += dup.filter{it.value > 1}.size
-        }
-
         return answer
     }
 }
